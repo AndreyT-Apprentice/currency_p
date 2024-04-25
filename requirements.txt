@@ -4,6 +4,9 @@ distlib==0.3.8
 Django==5.0.4
 filelock==3.13.4
 flake8==7.0.0
+flake8-builtins==2.5.0
+flake8-import-order==0.18.2
+flake8-print==5.0.0
 identify==2.5.36
 mccabe==0.7.0
 nodeenv==1.8.0

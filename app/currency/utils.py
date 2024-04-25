@@ -1,5 +1,5 @@
-import string
 import random
+import string
 # import csv
 
 # from faker import Faker
