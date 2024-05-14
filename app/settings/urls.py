@@ -15,32 +15,20 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from currency.views import (
-    contact_us_create,
-    generate_password,
-    rate_create, rate_delete, rate_details, rate_list, rate_update,
-    soucre_create,
-    source_delete,
-    source_list,
-    source_update, sourse_details
+    # index,
+    IndexView,
     )
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # path('', index, name='index'),
+    path('', IndexView.as_view(), name='index'),
 
-    path('gen-pass/', generate_password),
-    path('currency/rate/list/', rate_list),
-    path('currency/rate/details/<int:pk>/', rate_details),
-    path('currency/source/list/', source_list),
-    path('currency/source/details/<int:pk>/', sourse_details),
-    path('currency/rate/create/', rate_create),
-    path('currency/rate/update/<int:pk>/', rate_update),
-    path('currency/rate/delete/<int:pk>/', rate_delete),
-    path('currency/contact_us/create/', contact_us_create),
-    path('currency/source/create/', soucre_create),
-    path('currency/source/update/<int:pk>/', source_update),
-    path('currency/source/delete/<int:pk>/', source_delete),
+    path('currency/', include('currency.urls')),
+
+    path("__debug__/", include("debug_toolbar.urls")),
 ]

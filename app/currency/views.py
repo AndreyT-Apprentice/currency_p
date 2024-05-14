@@ -1,168 +1,76 @@
 from currency.forms import ContactUSForm, RateForm, SourceForm
-from currency.models import Rate, Source
-from currency.utils import generate_password as gp
+from currency.models import ContactUS, Rate, Source
 
-from django.http import Http404, HttpResponse, HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
-# from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.views.generic import CreateView, DeleteView, DetailView, ListView, TemplateView, UpdateView
 
 
-def generate_password(request):
-    password = gp()
-    return HttpResponse(password)
+class IndexView(TemplateView):
+    template_name = "index.html"
 
 
-def rate_list(request):
-    queryset = Rate.objects.all()
-    # ids = []
-    # from time import time
-
-    # for rate in queryset:
-    #     ids.append(rate.id)
-
-    context = {
-        'objects': queryset,
-    }
-
-    return render(request, 'rate_list.html', context=context)
+class RateListView(ListView):
+    model = Rate
+    template_name = "rate_list.html"
 
 
-def rate_details(request, pk):
-
-    # try:
-    #     rate = Rate.objects.get(pk=pk)
-    # except Rate.DoesNotExist:
-    #     raise Http404(f"Rate does not exist with id: {pk}")
-
-    rate = get_object_or_404(Rate, pk=pk)
-
-    context = {
-        'object': rate,
-    }
-    return render(request, 'rate_details.html', context=context)
+class RateDetailView(DetailView):
+    model = Rate
+    template_name = "rate_details.html"
 
 
-def source_list(request):
-    queryset = Source.objects.all()
-
-    context = {
-        'sources': queryset,
-    }
-
-    return render(request, 'souce_list.html', context=context)
+class RateCreateView(CreateView):
+    model = Rate
+    form_class = RateForm
+    template_name = "rate_create.html"
+    success_url = reverse_lazy('currency:rate-list')
 
 
-def sourse_details(request, pk):
-
-    source = get_object_or_404(Source, pk=pk)
-
-    context = {
-        'source': source,
-    }
-
-    return render(request, 'source_details.html', context=context)
+class RateUpdateView(UpdateView):
+    model = Rate
+    form_class = RateForm
+    template_name = "rate_update.html"
+    success_url = reverse_lazy('currency:rate-list')
 
 
-def rate_create(request):
-
-    if request.method == 'POST':
-        form_data = request.POST
-        form = RateForm(form_data)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/currency/rate/list/')
-    elif request.method == 'GET':
-        form = RateForm()
-
-    context = {
-        'massage': 'Rate Create',
-        'form': form,
-    }
-
-    return render(request, 'rate_create.html', context=context)
+class RateDeleteView(DeleteView):
+    model = Rate
+    template_name = "rate_delete.html"
+    success_url = reverse_lazy('currency:rate-list')
 
 
-def rate_update(request, pk):
-
-    instance = get_object_or_404(Rate, pk=pk)
-    if request.method == 'POST':
-        form_data = request.POST
-        form = RateForm(form_data, instance=instance)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/currency/rate/list/')
-    elif request.method == 'GET':
-        form = RateForm(instance=instance)
-
-    context = {
-        'massage': 'Rate Update',
-        'form': form,
-    }
-
-    return render(request, 'rate_update.html', context=context)
+class SourceListView(ListView):
+    model = Source
+    template_name = "source_list.html"
 
 
-def rate_delete(request, pk):
-    instance = get_object_or_404(Rate, pk=pk)
-    if instance is not Http404:
-        instance.delete()
-    return HttpResponseRedirect('/currency/rate/list/')
+class SourceDetailView(DetailView):
+    model = Source
+    template_name = "source_details.html"
 
 
-def contact_us_create(request):
-    if request.method == 'POST':
-        form_data = request.POST
-        form = ContactUSForm(form_data)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/currency/rate/list/')
-    else:
-        form = ContactUSForm()
-
-    context = {
-        'massage': 'Contact Us',
-        'form': form,
-    }
-    return render(request, 'contact_us_create.html', context=context)
+class SourceCreateView(CreateView):
+    model = Source
+    form_class = SourceForm
+    template_name = "source_create.html"
+    success_url = reverse_lazy('currency:source-list')
 
 
-def soucre_create(request):
-    if request.method == 'POST':
-        form_data = request.POST
-        form = SourceForm(form_data)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/currency/source/list/')
-    else:
-        form = SourceForm()
-
-    context = {
-        'massage': 'Source Create',
-        'form': form,
-    }
-    return render(request, 'source_create.html', context=context)
+class SourceUpdateView(UpdateView):
+    model = Source
+    form_class = SourceForm
+    template_name = "source_update.html"
+    success_url = reverse_lazy('currency:source-list')
 
 
-def source_update(request, pk):
-    instance = get_object_or_404(Source, pk=pk)
-    if request.method == 'POST':
-        form_data = request.POST
-        form = SourceForm(form_data, instance=instance)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/currency/source/list/')
-    else:
-        form = SourceForm(instance=instance)
-
-    context = {
-        'massage': 'Source Update',
-        'form': form,
-    }
-    return render(request, 'source_update.html', context=context)
+class SourceDeleteView(DeleteView):
+    model = Source
+    template_name = "source_delete.html"
+    success_url = reverse_lazy('currency:source-list')
 
 
-def source_delete(request, pk):
-    instance = get_object_or_404(Source, pk=pk)
-    if instance is not Http404:
-        instance.delete()
-    return HttpResponseRedirect('/currency/source/list/')
+class ContactUSCreateView(CreateView):
+    model = ContactUS
+    form_class = ContactUSForm
+    template_name = "contact_us_create.html"
+    success_url = reverse_lazy('index')

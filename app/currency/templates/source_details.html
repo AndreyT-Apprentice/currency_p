@@ -1,48 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<style>
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
+{% extends "base_table.html" %}
 
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
 
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-</style>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% block main_content_list %}
 
-    <h2>
-        Source Details
-    </h2>
-    <table>
-        <tr>
-            <th> ID </th>
-            <th> Source Name </th>
-            <th> Source URL </th>
-            <th> Updated </th>
-            <th> Created </th>
-        </tr>
-        <tr>
-            <td> {{ source.id }} </td>
-            <td> {{ source.source_name }} </td>
-            <td> {{ source.source_url }} </td>
-            <td> {{ source.updated }} </td>
-            <td> {{ source.created }} </td>
-        </tr>
-    </table>
+<h2>
+  Source Details
+</h2>
+<table>
+  <tr>
+      <th> ID </th>
+      <th> Source Name </th>
+      <th> Source URL </th>
+      <th> Updated </th>
+      <th> Created </th>
+  </tr>
+  <tr>
+      <td> {{ source.id }} </td>
+      <td> {{ source.source_name }} </td>
+      <td> {{ source.source_url }} </td>
+      <td> {{ source.updated }} </td>
+      <td> {{ source.created }} </td>
+  </tr>
+</table>
 
-</body>
-</html>
+{% endblock main_content_list %}

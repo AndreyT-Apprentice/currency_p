@@ -1,0 +1,33 @@
+{% extends "base_table.html" %}
+
+
+{% block main_content_list %}
+
+<a href="{% url "currency:source-create" %}"> Create Source </a>
+
+<h2>
+    Source List
+</h2>
+<table>
+    <tr>
+        <th> ID </th>
+        <th> Source Name </th>
+        <th> Source URL </th>
+        <th> Updated </th>
+        <th> Created </th>
+    </tr>
+    {% for source in source_list %}
+    <tr>
+        <td> {{ source.id }} </td>
+        <td> {{ source.source_name }} </td>
+        <td> {{ source.source_url }} </td>
+        <td> {{ source.updated }} </td>
+        <td> {{ source.created }} </td>
+        <td><a href="{% url "currency:source-details" source.id %}"> Details </a></td>
+        <td><a href="{% url "currency:source-update" source.id %}"> Edit </a></td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+{% endblock main_content_list %}

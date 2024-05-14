@@ -13,7 +13,8 @@ class Rate(models.Model):
 class ContactUS(models.Model):
     email_from = models.EmailField(max_length=320)
     subject = models.CharField(max_length=64)
-    message = models.TextField()
+    message = models.CharField(max_length=1024)
+    created = models.DateTimeField(auto_now_add=True)
 
 
 class Source(models.Model):
