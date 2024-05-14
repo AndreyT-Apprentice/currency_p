@@ -1,0 +1,26 @@
+{% extends "base_table.html" %}
+
+
+{% block main_content_list %}
+
+<h2>
+  Source Details
+</h2>
+<table>
+  <tr>
+      <th> ID </th>
+      <th> Source Name </th>
+      <th> Source URL </th>
+      <th> Updated </th>
+      <th> Created </th>
+  </tr>
+  <tr>
+      <td> {{ source.id }} </td>
+      <td> {{ source.source_name }} </td>
+      <td> {{ source.source_url }} </td>
+      <td> {{ source.updated }} </td>
+      <td> {{ source.created }} </td>
+  </tr>
+</table>
+
+{% endblock main_content_list %}

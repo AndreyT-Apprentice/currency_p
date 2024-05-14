@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+
+{% block main_content %}
+
+{{ massage }}
+    
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit"> Send </button>
+</form>
+
+<a href="{% url "currency:source-delete" form.instance.id %}"> Delete </a>
+
+{% endblock main_content %}
